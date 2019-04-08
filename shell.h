@@ -8,5 +8,7 @@
 #include <sys/wait.h>
 
 void _puts(char *str);
+int _putchar(char c);
+
 
 #endif /* SHELL_H */
