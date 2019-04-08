@@ -7,4 +7,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+void _puts(char *str);
+
 #endif /* SHELL_H */
