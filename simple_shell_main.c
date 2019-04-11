@@ -23,7 +23,6 @@ int main(__attribute__((unused)) int ac, __attribute__((unused)) char **argv, ch
 	ssize_t lineptr = 0;
 	size_t size = 0;
 	int v;
-//	char *av[] = {"", NULL};
 	char *path;
 	char **dir;
 	char **tokenize;
@@ -46,8 +45,6 @@ int main(__attribute__((unused)) int ac, __attribute__((unused)) char **argv, ch
 
 
 		tokenize = handle(buff);
-//		printf("%s\n", tokenize[1]);	
-//		printf("%s\n", tokenize[0]);	
 
 		path = get_command(dir, tokenize[0]);
 		printf("-------------------------token %s------------------\n", tokenize[0]);
