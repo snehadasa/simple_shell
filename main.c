@@ -7,6 +7,7 @@ int main(__attribute__((unused)) int ac, __attribute__((unused)) char **av/*, ch
 	size_t lens = 0;
 	ssize_t ptr = 0;
 	pid_t pid;
+	char *dir;
 	struct stat st;
 
 	while (1)
