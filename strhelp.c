@@ -25,7 +25,7 @@ int _strcmp(char *s1, char *s2)
 	}
 	return (k);
 }
-#include "holberton.h"
+#include "shell.h"
 /**
  * _strlen - returns the length of a string.
  * @s: character value.
@@ -40,7 +40,7 @@ int _strlen(char *s)
 		;
 	return (i);
 }
-#include "holberton.h"
+#include "shell.h"
 /**
  * _strcpy -  a function that copies the string.
  * @dest : character value
@@ -57,7 +57,7 @@ char *_strcpy(char *dest, char *src)
 	dest[i] = '\0';
 	return (dest);
 }
-#include "holberton.h"
+#include "shell.h"
 /**
  * _strcat - concentrate two string.
  *@dest: character value.
