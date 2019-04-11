@@ -16,20 +16,22 @@ void env_builtin()
  *
  * Return: Always 0.
  */
-int main(int ac, char **argv, char **env)
+int main(__attribute__((unused)) int ac, __attribute__((unused)) char **argv, char **env)
 {
 	pid_t pid;
 	char *buff;
 	ssize_t lineptr = 0;
 	size_t size = 0;
 	int v;
-	char *av[] = {"", NULL};
+//	char *av[] = {"", NULL};
 	char *path;
 	char **dir;
-//	char **tokenize;
+	char **tokenize;
 
 	path = get_path_value(env);
+	printf("path %s\n", path);
 	dir = split_path(path);
+	printf("dir %s\n", dir[0]);
 
 	while (1)
 	{
@@ -39,15 +41,17 @@ int main(int ac, char **argv, char **env)
 
 		if (lineptr == EOF)
 		{
-			return (-1);
+			return (1);
 		}
 
 
-//		tokenize = str_tokenize(buff);
+		tokenize = handle(buff);
 //		printf("%s\n", tokenize[1]);	
 //		printf("%s\n", tokenize[0]);	
 
-		path = get_command(dir, buff);
+		path = get_command(dir, tokenize[0]);
+		printf("-------------------------token %s------------------\n", tokenize[0]);
+		printf("%s\n", path);
 		pid = fork();
 		
 		v = _strcmp(buff, "exit");
@@ -72,18 +76,19 @@ int main(int ac, char **argv, char **env)
 		if (pid == 0)
 		{
 			
-			if (execve(path, av, NULL) == -1)
+			if (execve(path, tokenize, NULL) == -1)
 			{
 				perror("Error:");
 				free(buff);
-				return(-1);
+				exit(0);;
 			}
 		}
 		else
 		{
 			wait(NULL);
-			continue;
 		}
-		return (0);
+		
+		free(buff);
 	}
+	return (0);
 }

@@ -11,7 +11,6 @@ int _strlen(char *str)
 
 char *append_command(char *dir, char *command)
 {
-	int dir_len, command_len;
 	char *result;
 	int i = 0, j = 0, k = 0;
 
@@ -54,7 +53,7 @@ int _strcmp(char *s1, char *s2)
             break;
         }
     }
-    return (s1[i] - s2[j]);
+    return (k);
 }
 
 char *get_path_value(char **env)
@@ -83,6 +82,7 @@ char **split_path(char *path)
 	int i = 0, j = 0;
 	char *token;
 	char **directories;
+	char *temp;
 
 	for (i = 0; path[i]; i++)
 	{
@@ -95,7 +95,8 @@ char **split_path(char *path)
 	if (!directories)
 		return (NULL);
 
-	token = strtok(path, ":");
+	temp = path;
+	token = strtok(temp, ":");
 	while(token)
 	{
 		directories[j] = token;
@@ -121,6 +122,7 @@ char *get_command(char **directories, char *command)
 	{
 		temp = append_command(directories[i], command);
 		i++;
+		printf("[%s]\n", temp);
 		if (stat(temp, &st) == 0)
 			return (temp);
 		free(temp);
