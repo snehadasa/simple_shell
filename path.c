@@ -1,5 +1,42 @@
 #include "shell.h"
 
+int _strlen(char *str)
+{
+	int i = 0;
+
+	while (str[i])
+		i++;
+	return i;
+}
+
+char *append_command(char *dir, char *command)
+{
+	int dir_len, command_len;
+	char *result;
+	int i = 0, j = 0, k = 0;
+
+	result = malloc(_strlen(dir) + _strlen(command) + 2);
+	while (dir[i])
+	{
+		result[j] = dir[i];
+		i++;
+		j++;
+	}
+
+	result[j] = '/';
+	j++;
+
+	while(command[k])
+	{
+		result[j] = command[k];
+		j++;
+		k++;
+	}
+	result[j] = '\0';
+
+	return (result);
+}
+
 int _strcmp(char *s1, char *s2)
 {
     int i = 0, j = 0;
@@ -24,10 +61,12 @@ char *get_path_value(char **env)
 {
 	char *token;
 	int i = 0;
+	char *temp;
 	
 	while (env[i])
 	{
-		token = strtok(env[i], "=");
+		temp = env[i];
+		token = strtok(temp, "=");
 		if (_strcmp(token, "PATH") == 0)
 		{
 			token = strtok(NULL, "=");
@@ -69,3 +108,20 @@ char **split_path(char *path)
 	return (directories);
 }
 
+
+char *get_command(char **directories, char *command)
+{
+	struct stat st;
+	char *temp;
+	int i = 0;
+
+	while (directories[i])
+	{
+		temp = append_command(directories[i], command);
+		i++;
+		if (stat(temp, &st) == 0)
+			return (temp);
+		free(temp);
+	}
+	return (NULL);
+}

@@ -4,10 +4,10 @@ void env_builtin()
 {
 	int i;
 
-	for (i = 0; environ[i]; i++)
+	for (i = 0; __environ[i]; i++)
 	{
-		print_string(environ[i]);
-		print_string("\n");
+		_puts(__environ[i]);
+		_puts("\n");
 	}
 }
 
@@ -16,7 +16,7 @@ void env_builtin()
  *
  * Return: Always 0.
  */
-int main()
+int main(int ac, char **argv, char **env)
 {
 	pid_t pid;
 	char *buff;
@@ -24,11 +24,16 @@ int main()
 	size_t size = 0;
 	int v;
 	char *av[] = {"", NULL};
-	char **tokenize;
+	char *path;
+	char **dir;
+//	char **tokenize;
+
+	path = get_path_value(env);
+	dir = split_path(path);
 
 	while (1)
 	{
-		print_string(" $");
+		_puts("$ ");
 		lineptr = getline(&buff, &size, stdin);
 		buff[lineptr - 1] = '\0';
 
@@ -37,11 +42,11 @@ int main()
 			return (-1);
 		}
 
-		tokenize = str_tokenize(buff);
-		printf("%s\n", tokenize[1]);	
-		get_command(tokenize[0], environ);
-		printf("%s\n", tokenize[0]);	
+//		tokenize = str_tokenize(buff);
+//		printf("%s\n", tokenize[1]);	
+//		printf("%s\n", tokenize[0]);	
 
+		path = get_command(dir, buff);
 		pid = fork();
 		
 		v = _strcmp(buff, "exit");
@@ -59,7 +64,8 @@ int main()
 
 		if (pid == 0)
 		{
-			if (execve(tokenize[0], av, NULL) == -1)
+			
+			if (execve(path, av, NULL) == -1)
 			{
 				perror("Error:");
 				free(buff);
