@@ -115,6 +115,8 @@ char *get_command(char **directories, char *command)
 	char *temp;
 	int i = 0;
 
+	if (stat(command, &st) == 0)
+		return (command);
 	while (directories[i])
 	{
 		temp = append_command(directories[i], command);

@@ -16,5 +16,7 @@ char *get_path_value(char **env);
 char **split_path(char *path);
 char *get_command(char **directories, char *command);
 char *get_command_path(char **env, char *command);
+char **handle(char *buffer);
+
 
 #endif /* SHELL_H */

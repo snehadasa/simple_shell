@@ -42,6 +42,7 @@ int main(int ac, char **argv, char **env)
 			return (-1);
 		}
 
+
 //		tokenize = str_tokenize(buff);
 //		printf("%s\n", tokenize[1]);	
 //		printf("%s\n", tokenize[0]);	
@@ -53,6 +54,12 @@ int main(int ac, char **argv, char **env)
                	if (!v)
                	{
 			exit(98);
+		}
+
+		v = _strcmp(buff, "env");
+		if (!v)
+		{
+			env_builtin();
 		}
 		
 		if (pid < 0)
