@@ -6,7 +6,26 @@ int _strlen(char *str)
 
 	while (str[i])
 		i++;
-	return i;
+	return (i);
+}
+int _strcmp(char *s1, char *s2)
+{
+	int i = 0, j = 0;
+	int k = 0;
+	while (s1[i] != '\0' || s2[j] != '\0')
+	{
+		if (s1[i] == s2[j])
+		{
+			i++;
+			j++;
+		}
+		else if (s1[i] != s2[j])
+		{
+			k = s1[i] - s2[j];
+			break;
+		}
+	}
+	return (k);
 }
 
 char *append_command(char *dir, char *command)
@@ -21,10 +40,8 @@ char *append_command(char *dir, char *command)
 		i++;
 		j++;
 	}
-
 	result[j] = '/';
 	j++;
-
 	while(command[k])
 	{
 		result[j] = command[k];
@@ -36,32 +53,12 @@ char *append_command(char *dir, char *command)
 	return (result);
 }
 
-int _strcmp(char *s1, char *s2)
-{
-    int i = 0, j = 0;
-    int k = 0;
-    while (s1[i] != '\0' || s2[j] != '\0')
-    {
-        if (s1[i] == s2[j])
-        {
-            i++;
-            j++;
-        }
-        else if (s1[i] != s2[j])
-        {
-            k = s1[i] - s2[j];
-            break;
-        }
-    }
-    return (k);
-}
-
 char *get_path_value(char **env)
 {
 	char *token;
 	int i = 0;
 	char *temp;
-	
+
 	while (env[i])
 	{
 		temp = env[i];
@@ -69,7 +66,7 @@ char *get_path_value(char **env)
 		if (_strcmp(token, "PATH") == 0)
 		{
 			token = strtok(NULL, "=");
-			return (token); 
+			return (token);
 		}
 		i++;
 	}
@@ -89,12 +86,9 @@ char **split_path(char *path)
 		if (path[i] == ':')
 			words++;
 	}
-
 	directories = malloc(sizeof(char*) * (words + 1));
-
 	if (!directories)
 		return (NULL);
-
 	temp = path;
 	token = strtok(temp, ":");
 	while(token)
@@ -103,12 +97,9 @@ char **split_path(char *path)
 		token = strtok(NULL, ":");
 		j++;
 	}
-
 	directories[j] = NULL;
-
 	return (directories);
 }
-
 
 char *get_command(char **directories, char *command)
 {
@@ -116,13 +107,14 @@ char *get_command(char **directories, char *command)
 	char *temp;
 	int i = 0;
 
+	if (command ==  NULL)
+		return (NULL);
 	if (stat(command, &st) == 0)
 		return (command);
 	while (directories[i])
 	{
 		temp = append_command(directories[i], command);
 		i++;
-		printf("[%s]\n", temp);
 		if (stat(temp, &st) == 0)
 			return (temp);
 		free(temp);

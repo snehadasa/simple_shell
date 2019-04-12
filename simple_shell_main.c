@@ -10,13 +10,12 @@ void env_builtin()
 		_puts("\n");
 	}
 }
-
 /**
- * main - fork example
+ * main - entry point to run simple shell.
  *
  * Return: Always 0.
  */
-int main(__attribute__((unused)) int ac, __attribute__((unused)) char **argv, char **env)
+int main(__attribute__((unused)) int ac, __attribute__((unused))char **av, char **env)
 {
 	pid_t pid;
 	char *buff;
@@ -28,64 +27,45 @@ int main(__attribute__((unused)) int ac, __attribute__((unused)) char **argv, ch
 	char **tokenize;
 
 	path = get_path_value(env);
-	printf("path %s\n", path);
 	dir = split_path(path);
-	printf("dir %s\n", dir[0]);
-
 	while (1)
 	{
 		_puts("$ ");
 		lineptr = getline(&buff, &size, stdin);
 		buff[lineptr - 1] = '\0';
-
 		if (lineptr == EOF)
-		{
 			return (1);
-		}
-
-
 		tokenize = handle(buff);
-
-		path = get_command(dir, tokenize[0]);
-		printf("-------------------------token %s------------------\n", tokenize[0]);
-		printf("%s\n", path);
-		pid = fork();
-		
+		if (tokenize)
+			path = get_command(dir, tokenize[0]);
 		v = _strcmp(buff, "exit");
                	if (!v)
-               	{
 			exit(98);
-		}
-
 		v = _strcmp(buff, "env");
 		if (!v)
-		{
 			env_builtin();
-		}
-		
-		if (pid < 0)
+		pid = fork();
+		if (pid == -1)
 		{
 			perror("error");
 			free(buff);
 			return(1);
 		}
-
 		if (pid == 0)
 		{
-			
 			if (execve(path, tokenize, NULL) == -1)
 			{
 				perror("Error:");
+				free(tokenize);
 				free(buff);
 				exit(0);;
 			}
 		}
 		else
-		{
 			wait(NULL);
-		}
-		
-		free(buff);
 	}
+	free(path);
+	free(tokenize);
+	free(buff);
 	return (0);
 }
