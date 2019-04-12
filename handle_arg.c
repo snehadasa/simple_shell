@@ -25,7 +25,7 @@ char **handle(char *buffer)
 		return (NULL);
 	token = strtok(buffer, " \t\n");
 	if (!token)
-	   return (NULL);
+		return (NULL);
 	while (token)
 	{
 		arr[j] = token;
