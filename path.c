@@ -40,6 +40,7 @@ int _strcmp(char *s1, char *s2)
 {
     int i = 0, j = 0;
     int k = 0;
+
     while (s1[i] != '\0' || s2[j] != '\0')
     {
         if (s1[i] == s2[j])
@@ -50,10 +51,10 @@ int _strcmp(char *s1, char *s2)
         else if (s1[i] != s2[j])
         {
             k = s1[i] - s2[j];
-            break;
+            return (k);
         }
     }
-    return (k);
+    return (s1[i] - s2[j]);
 }
 
 char *get_path_value(char **env)

@@ -45,22 +45,38 @@ int main(__attribute__((unused)) int ac, __attribute__((unused)) char **argv, ch
 
 
 		tokenize = handle(buff);
+		if(!tokenize)
+			continue;
 
-		path = get_command(dir, tokenize[0]);
 		printf("-------------------------token %s------------------\n", tokenize[0]);
-		printf("%s\n", path);
 		pid = fork();
 		
-		v = _strcmp(buff, "exit");
+		v = _strcmp(tokenize[0], "exit");
                	if (!v)
                	{
+			printf("Exit %s\n", buff);
+			free(dir);
+			free(path);
+			free(buff);
 			exit(98);
 		}
 
-		v = _strcmp(buff, "env");
+		v = _strcmp(tokenize[0], "env");
 		if (!v)
 		{
 			env_builtin();
+			continue;
+		}
+		if(tokenize[0][0] == '\n')
+		{
+			continue;
+		}
+
+		path = get_command(dir, tokenize[0]);
+		if (path == NULL)
+		{
+			_puts("Command not found");
+			continue;
 		}
 		
 		if (pid < 0)
@@ -86,6 +102,8 @@ int main(__attribute__((unused)) int ac, __attribute__((unused)) char **argv, ch
 		}
 		
 		free(buff);
+		free(path);
+		free(tokenize);
 	}
 	return (0);
 }
