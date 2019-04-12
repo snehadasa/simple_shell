@@ -81,6 +81,8 @@ char **split_path(char *path)
 	char **directories;
 	char *temp;
 
+	if (!path)
+		path = "";
 	for (i = 0; path[i]; i++)
 	{
 		if (path[i] == ':')
@@ -109,8 +111,6 @@ char *get_command(char **directories, char *command)
 
 	if (command ==  NULL)
 		return (NULL);
-	if (stat(command, &st) == 0)
-		return (command);
 	while (directories[i])
 	{
 		temp = append_command(directories[i], command);
@@ -119,5 +119,7 @@ char *get_command(char **directories, char *command)
 			return (temp);
 		free(temp);
 	}
+	if (stat(command, &st) == 0)
+		return (command);
 	return (NULL);
 }
