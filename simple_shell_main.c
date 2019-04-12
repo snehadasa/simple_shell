@@ -36,14 +36,15 @@ int main(__attribute__((unused)) int ac, __attribute__((unused))char **av, char 
 		if (lineptr == EOF)
 			return (1);
 		tokenize = handle(buff);
-		if (tokenize)
-			path = get_command(dir, tokenize[0]);
+		if (!tokenize)
+			continue;
+		path = get_command(dir, tokenize[0]);
 		v = _strcmp(buff, "exit");
-               	if (!v)
+		if (!v)
 			exit(98);
 		v = _strcmp(buff, "env");
 		if (!v)
-			env_builtin();
+		env_builtin();
 		pid = fork();
 		if (pid == -1)
 		{
