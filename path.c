@@ -6,7 +6,27 @@ int _strlen(char *str)
 
 	while (str[i])
 		i++;
-	return i;
+	return (i);
+}
+
+int _strcmp(char *s1, char *s2)
+{
+	int i = 0, j = 0;
+	int k = 0;
+	while (s1[i] != '\0' || s2[j] != '\0')
+	{
+		if (s1[i] == s2[j])
+		{
+			i++;
+			j++;
+		}
+		else if (s1[i] != s2[j])
+		{
+			k = s1[i] - s2[j];
+			return(k);
+		}
+	}
+	return (s1[i] - s2[j]);
 }
 
 char *append_command(char *dir, char *command)
@@ -21,10 +41,8 @@ char *append_command(char *dir, char *command)
 		i++;
 		j++;
 	}
-
 	result[j] = '/';
 	j++;
-
 	while(command[k])
 	{
 		result[j] = command[k];
@@ -36,33 +54,12 @@ char *append_command(char *dir, char *command)
 	return (result);
 }
 
-int _strcmp(char *s1, char *s2)
-{
-    int i = 0, j = 0;
-    int k = 0;
-
-    while (s1[i] != '\0' || s2[j] != '\0')
-    {
-        if (s1[i] == s2[j])
-        {
-            i++;
-            j++;
-        }
-        else if (s1[i] != s2[j])
-        {
-            k = s1[i] - s2[j];
-            return (k);
-        }
-    }
-    return (s1[i] - s2[j]);
-}
-
 char *get_path_value(char **env)
 {
 	char *token;
 	int i = 0;
 	char *temp;
-	
+
 	while (env[i])
 	{
 		temp = env[i];
@@ -70,7 +67,7 @@ char *get_path_value(char **env)
 		if (_strcmp(token, "PATH") == 0)
 		{
 			token = strtok(NULL, "=");
-			return (token); 
+			return (token);
 		}
 		i++;
 	}
@@ -85,17 +82,16 @@ char **split_path(char *path)
 	char **directories;
 	char *temp;
 
+	if (!path)
+		path = "";
 	for (i = 0; path[i]; i++)
 	{
 		if (path[i] == ':')
 			words++;
 	}
-
 	directories = malloc(sizeof(char*) * (words + 1));
-
 	if (!directories)
 		return (NULL);
-
 	temp = path;
 	token = strtok(temp, ":");
 	while(token)
@@ -104,12 +100,9 @@ char **split_path(char *path)
 		token = strtok(NULL, ":");
 		j++;
 	}
-
 	directories[j] = NULL;
-
 	return (directories);
 }
-
 
 char *get_command(char **directories, char *command)
 {
@@ -117,16 +110,17 @@ char *get_command(char **directories, char *command)
 	char *temp;
 	int i = 0;
 
-	if (stat(command, &st) == 0)
-		return (command);
+	if (command ==  NULL)
+		return (NULL);
 	while (directories[i])
 	{
 		temp = append_command(directories[i], command);
 		i++;
-		printf("[%s]\n", temp);
 		if (stat(temp, &st) == 0)
 			return (temp);
 		free(temp);
 	}
+	if (stat(command, &st) == 0)
+		return (command);
 	return (NULL);
 }
