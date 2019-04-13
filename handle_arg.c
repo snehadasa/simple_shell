@@ -35,3 +35,11 @@ char **handle(char *buffer)
 	arr[j] = NULL;
 	return (arr);
 }
+
+char *trim_spaces(char *buffer)
+{
+	while ((*buffer == ' ' || *buffer == '\t' || *buffer == '\n') && 
+			*buffer != '\0')
+		buffer++;
+	return buffer;
+}

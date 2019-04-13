@@ -10,6 +10,25 @@ void env_builtin()
 		_puts("\n");
 	}
 }
+
+
+/** 
+ * free_var - Frees used variables.
+ * 
+ * @dir - directories
+ * @tokenize - toknize
+ * @buff - buffer
+ * @path - Path
+ */
+void free_var(char **dir, char **tokenize, char *buff, char *path)
+{
+	free(dir);
+	free(tokenize);
+	free(buff);
+	free(path);
+}
+
+
 /**
  * main - entry point to run simple shell.
  *
@@ -19,6 +38,7 @@ int main(__attribute__((unused)) int ac, __attribute__((unused))char **av, char 
 {
 	pid_t pid;
 	char *buff;
+	char *trimmed_buff;
 	ssize_t lineptr = 0;
 	size_t size = 0;
 	int v;
@@ -35,23 +55,36 @@ int main(__attribute__((unused)) int ac, __attribute__((unused))char **av, char 
 		buff[lineptr - 1] = '\0';
 		if (lineptr == EOF)
 			return (1);
-		tokenize = handle(buff);
+		trimmed_buff = trim_spaces(buff);
+		tokenize = handle(trimmed_buff);
 		
 		if (!tokenize)
+		{
+			free(buff);
 			continue;
-		v = _strcmp(buff, "exit");
+		}
+		v = _strcmp(trimmed_buff, "exit");
 		if (!v)
+		{
+			free(dir);
+			free(buff);
+			free(tokenize);
 			exit(98);
-		v = _strcmp(buff, "env");
+		}
+		v = _strcmp(trimmed_buff, "env");
 		if (!v)
+		{
 			env_builtin();
+			free(buff);
+			continue;
+		}
 		
 		path = get_command(dir, tokenize[0]);
 		pid = fork();
 		if (pid == -1)
 		{
 			perror("error");
-			free(buff);
+			free_var(dir, tokenize, buff, path);
 			return(1);
 		}
 		if (pid == 0)
@@ -59,16 +92,13 @@ int main(__attribute__((unused)) int ac, __attribute__((unused))char **av, char 
 			if (execve(path, tokenize, NULL) == -1)
 			{
 				perror("Error:");
-				free(tokenize);
-				free(buff);
+				free_var(dir, tokenize, buff, path);
 				exit(0);;
 			}
 		}
 		else
 			wait(NULL);
 	}
-	free(path);
-	free(tokenize);
-	free(buff);
+	free_var(dir, tokenize, buff, path);
 	return (0);
 }
