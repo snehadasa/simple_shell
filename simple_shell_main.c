@@ -76,6 +76,7 @@ int main(__attribute__((unused)) int ac, __attribute__((unused))char **av, char 
 		{
 			env_builtin();
 			free(buff);
+			free(tokenize);
 			continue;
 		}
 		
