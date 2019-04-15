@@ -19,6 +19,9 @@ char **split_path(char *path);
 char *get_command(char **directories, char *command);
 char *get_command_path(char **env, char *command);
 char **handle(char *buffer);
-
+char *_strcat(char *dest, char *src);
+int _strlen(char *str);
+char *_memset(char *s, char b, unsigned int n);
+char *path_check(char *token, char **env);
 
 #endif /* SHELL_H */

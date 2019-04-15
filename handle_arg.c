@@ -20,7 +20,7 @@ char **handle(char *buffer)
 		if (flag == 0 && buffer[i] == ' ' && buffer[i + 1] != ' ')
 			word++;
 	}
-	arr = malloc(sizeof(char*) * (word + 1));
+	arr = malloc(sizeof(char *) * (word + 1));
 	if (!arr)
 		return (NULL);
 	token = strtok(buffer, " \t\n");
