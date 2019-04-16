@@ -1,5 +1,8 @@
 #include "shell.h"
-
+/**
+ * env_builtin - enviroment built-in.
+ * @env: array of string of environment values.
+ */
 void env_builtin(char **env)
 {
 	int i;
@@ -12,50 +15,33 @@ void env_builtin(char **env)
 }
 /**
  * main - entry point to run simple shell.
+ * @ac: argument count.
+ * @av: argument variable.
+ * @env: array of string of environment values.
  *
  * Return: Always 0.
  */
-int main(__attribute__((unused)) int ac, __attribute__((unused))char **av, char **env)
+int main(int ac, __attribute__((unused))char **av, char **env)
 {
+	(void)ac;
 	pid_t pid;
-	char *buff;
-	ssize_t lineptr = 0;
-	size_t size = 0;
-	int v;
+	char *buff = NULL;
 	char *path;
-	/*char **dir;*/
 	char **tokenize;
 
-	/*path = get_path_value(env);
-	  dir = split_path(path); */
 	while (1)
 	{
-		if (isatty(STDIN_FILENO))
-			_puts("$ ");
-		lineptr = getline(&buff, &size, stdin);
-		buff[lineptr - 1] = '\0';
-		if (lineptr == EOF)
-		{
-			if (isatty(0))
-				_puts("\n");
-			exit(0);
-		}
+		buff = readline();
 		tokenize = handle(buff);
 		if (!tokenize)
 			continue;
-/*		path = get_command(dir, tokenize[0]);*/
-		v = _strcmp(buff, "exit");
-		if (!v)
-			exit(98);
-		v = _strcmp(buff, "env");
-		if (!v)
-			env_builtin(env);
+		built_in(tokenize[0], env);
 		pid = fork();
 		if (pid == -1)
 		{
 			perror("error");
 			free(buff);
-			return(1);
+			return (1);
 		}
 		if (pid == 0)
 		{
@@ -65,7 +51,7 @@ int main(__attribute__((unused)) int ac, __attribute__((unused))char **av, char 
 				perror("Error:");
 				free(tokenize);
 				free(buff);
-				exit(0);;
+				exit(0);
 			}
 		}
 		else
