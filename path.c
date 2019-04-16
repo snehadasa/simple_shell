@@ -35,6 +35,7 @@ char *get_path_value(char **env)
 char *path_check(char *token, char **env)
 {
 	static char buffer[1024] = {0};
+	int i;
 	char *path;
 	char *tok;
 	struct stat st;
@@ -42,8 +43,15 @@ char *path_check(char *token, char **env)
 	path = get_path_value(env);
 	if (!path)
 		path = "";
-	if (path[0] == ':' && stat(token, &st) == 0)
-		return (token);
+	for (i = 0; path[i]; i++)
+	{
+		if ((path[0] == ':') || ((path[i] == ':') && (path[i + 1] == ':')))
+		{
+			if (_strncmp(&path[i + 2], "/bin:", 5) == 0)
+				if (stat(token, &st) == 0)
+					return (token);
+		}
+	}
 	tok = strtok(path, ":");
 	while (tok)
 	{

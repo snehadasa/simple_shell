@@ -1,7 +1,10 @@
 #include "shell.h"
 
 /**
+ *handle - take the buffer input and tokenize that input.
+ *@buffer: buffer input from main function.
  *
+ *Return: array of string after tokenizing.
  */
 char **handle(char *buffer)
 {
