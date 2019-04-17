@@ -25,33 +25,58 @@ char *get_path_value(char **env)
 	return (NULL);
 }
 /**
+ *_strstr -  a function that locates a substring..
+ *@haystack: string character value.
+ *@needle: substring character value.
+ *
+ * Return: Returns a pointer to substring, or NULL if it fails.
+ */
+char *_strstr(char *haystack, char *needle)
+{
+	int i;
+	int  j = 0;
+
+	if (needle[j] == '\0')
+		return (haystack);
+	for (i = 0; haystack[i] != '\0'; i++)
+	{
+		if (haystack[i] == needle[0])
+		{
+			for (j = 0; needle[j] != '\0' && haystack[i + j]
+				     && needle[j] == haystack[i + j]; j++)
+				;
+			if (needle[j] == 0)
+				return (haystack + i);
+		}
+	}
+	return (0);
+}
+/**
  *path_check -tokenize & concatenate path and check if the buffer exists.
  *@token: the string after tokenize the buffer in main file.
  *@env: a array of string of environment variable.
  *
  *Return: the buffer after concatenate.
  */
-
 char *path_check(char *token, char **env)
 {
 	static char buffer[1024] = {0};
-	int i;
 	char *path;
 	char *tok;
 	struct stat st;
+	char *a, *b;
 
 	path = get_path_value(env);
 	if (!path)
 		path = "";
-	for (i = 0; path[i]; i++)
+	a = _strstr(path, "::");
+	b = _strstr(path, ":/bin");
+	if (path[0] == ':' || (a && (a < b)))
 	{
-		if ((path[0] == ':') || ((path[i] == ':') && (path[i + 1] == ':')))
-		{
-			if (_strncmp(&path[i + 2], "/bin:", 5) == 0)
-				if (stat(token, &st) == 0)
-					return (token);
-		}
+		if (stat(token, &st) == 0)
+			return (token);
 	}
+
 	tok = strtok(path, ":");
 	while (tok)
 	{
