@@ -40,7 +40,7 @@ int main(int ac, __attribute__((unused))char **av, char **env)
 		pid = fork();
 		if (pid == -1)
 		{
-			perror("error");
+			perror("Error:");
 			free3(tokenize, buff);
 			return (1);
 		}
@@ -49,9 +49,9 @@ int main(int ac, __attribute__((unused))char **av, char **env)
 			path = path_check(tokenize[0], env);
 			if (execve(path, tokenize, NULL) == -1)
 			{
-				perror("Error:");
+				perror(tokenize[0]);
 				free2(tokenize, buff);
-				exit(0);
+				exit(127);
 			}
 		}
 		else
