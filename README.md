@@ -2,12 +2,17 @@ Simple Shell
 
 Overview
 
-The simple shell is a command processor that mimics the C shell allowing the user to type commands. This project was developed as a part of first trimester curriculum of Holberton School, San Fransisco.
+The simple shell is a command processor that mimics the C shell allowing the user to type commands. This project was developed as a part of first year curriculum of Holberton School, San Fransisco.
 
 Usage
 
 1. All the prototypes are included in shell.h.
-2. Compile using gcc -Wall -Werror -Wextra -pedantic * .c
+2. Compile using gcc -Wall -Werror -Wextra -pedantic * .c -o hsh
+3. waits for a comand from the user after printing the prompt.
+4. Checks for built-ins, aliases, executables in the path.
+5. Creates child process.
+6. When it is done, the program returns to parent.
+7. Ctrl-D(End of file) ad exit.
 
 Features
 
