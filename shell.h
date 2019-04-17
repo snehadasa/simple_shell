@@ -25,7 +25,7 @@ char *_strstr(char *haystack, char *needle);
 
 /*strhelp.c*/
 int _strcmp(char *s1, char *s2);
-int _strncmp(const char * s1, const char * s2, size_t n);
+int _strncmp(const char *s1, const char *s2, size_t n);
 char *_strcat(char *dest, char *src);
 int _strlen(char *str);
 char *_memset(char *s, char b, unsigned int n);
