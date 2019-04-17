@@ -1,6 +1,0 @@
-.TH man 1 "17 April 2019" "HOLBERTON SCHOOL" "SIMPLE SHELL"
-.SH NAME
-.B Simple Shell
-- command line interpreter
-.SH SYNOPSIS
-.B $ [command] -[options] [arguments]
