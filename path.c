@@ -1,58 +1,10 @@
 #include "shell.h"
-
-int _strlen(char *str)
-{
-	int i = 0;
-
-	while (str[i])
-		i++;
-	return (i);
-}
-int _strcmp(char *s1, char *s2)
-{
-	int i = 0, j = 0;
-	int k = 0;
-	while (s1[i] != '\0' || s2[j] != '\0')
-	{
-		if (s1[i] == s2[j])
-		{
-			i++;
-			j++;
-		}
-		else if (s1[i] != s2[j])
-		{
-			k = s1[i] - s2[j];
-			break;
-		}
-	}
-	return (k);
-}
-
-char *append_command(char *dir, char *command)
-{
-	char *result;
-	int i = 0, j = 0, k = 0;
-
-	result = malloc(_strlen(dir) + _strlen(command) + 2);
-	while (dir[i])
-	{
-		result[j] = dir[i];
-		i++;
-		j++;
-	}
-	result[j] = '/';
-	j++;
-	while(command[k])
-	{
-		result[j] = command[k];
-		j++;
-		k++;
-	}
-	result[j] = '\0';
-
-	return (result);
-}
-
+/**
+ *get_path_value - get the value of environment.
+ *@env: a array of string of environment variable
+ *
+ *Return: token(success) or NULL(fail).
+ */
 char *get_path_value(char **env)
 {
 	char *token;
@@ -72,54 +24,69 @@ char *get_path_value(char **env)
 	}
 	return (NULL);
 }
-
-char **split_path(char *path)
+/**
+ *_strstr -  a function that locates a substring..
+ *@haystack: string character value.
+ *@needle: substring character value.
+ *
+ * Return: Returns a pointer to substring, or NULL if it fails.
+ */
+char *_strstr(char *haystack, char *needle)
 {
-	int words = 1;
-	int i = 0, j = 0;
-	char *token;
-	char **directories;
-	char *temp;
+	int i;
+	int  j = 0;
 
+	if (needle[j] == '\0')
+		return (haystack);
+	for (i = 0; haystack[i] != '\0'; i++)
+	{
+		if (haystack[i] == needle[0])
+		{
+			for (j = 0; needle[j] != '\0' && haystack[i + j]
+				     && needle[j] == haystack[i + j]; j++)
+				;
+			if (needle[j] == 0)
+				return (haystack + i);
+		}
+	}
+	return (0);
+}
+/**
+ *path_check -tokenize & concatenate path and check if the buffer exists.
+ *@token: the string after tokenize the buffer in main file.
+ *@env: a array of string of environment variable.
+ *
+ *Return: the buffer after concatenate.
+ */
+char *path_check(char *token, char **env)
+{
+	static char buffer[1024] = {0};
+	char *path;
+	char *tok;
+	struct stat st;
+	char *a, *b;
+
+	path = get_path_value(env);
 	if (!path)
 		path = "";
-	for (i = 0; path[i]; i++)
+	a = _strstr(path, "::");
+	b = _strstr(path, ":/bin");
+	if (path[0] == ':' || (a && (a < b)))
 	{
-		if (path[i] == ':')
-			words++;
+		if (stat(token, &st) == 0)
+			return (token);
 	}
-	directories = malloc(sizeof(char*) * (words + 1));
-	if (!directories)
-		return (NULL);
-	temp = path;
-	token = strtok(temp, ":");
-	while(token)
-	{
-		directories[j] = token;
-		token = strtok(NULL, ":");
-		j++;
-	}
-	directories[j] = NULL;
-	return (directories);
-}
 
-char *get_command(char **directories, char *command)
-{
-	struct stat st;
-	char *temp;
-	int i = 0;
-
-	if (command ==  NULL)
-		return (NULL);
-	while (directories[i])
+	tok = strtok(path, ":");
+	while (tok)
 	{
-		temp = append_command(directories[i], command);
-		i++;
-		if (stat(temp, &st) == 0)
-			return (temp);
-		free(temp);
+		_strcat(buffer, tok);
+		_strcat(buffer, "/");
+		_strcat(buffer, token);
+		if (stat(buffer, &st) == 0)
+			return (buffer);
+		tok = strtok(NULL, ":");
+		_memset(buffer, 0, 1024);
 	}
-	if (stat(command, &st) == 0)
-		return (command);
-	return (NULL);
+	return (token);
 }
