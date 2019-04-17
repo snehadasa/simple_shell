@@ -1,6 +1,61 @@
-.TH man 1 "17 April 2019" "HOLBERTON SCHOOL" "SIMPLE SHELL"
+.TH HSH 2 "17 April 2015" "Simple shell man page"
 .SH NAME
-.B Simple Shell
-- command line interpreter
+.B HSH
+: a simple UNIX shell command interpreter.
 .SH SYNOPSIS
-.B $ [command] -[options] [arguments]
+.B HSH
+.OP Command
+.OP Option
+.OP File
+.SH DESCRIPTION
+.B HSH
+is a simple standard command for the system that interprets and executes commands which is the input from a terminal or a file.
+.B HSH
+is a simple version of real shell.
+.SS Overview
+This simple shell reads lines from the input (files or terminal), and executes them.
+It is the program that is running when user types
+.B ./hsh
+on the terminal. It allows user to aid interactive use and has the advantage that the interpretative language is common to both interactive and non-interactive use (shell scripts).  That is, users can type command directly to the running shell or can create command inside a file and the file can be executed directly by the simple shell.
+.SS Search and Execution
+There are three types of commands follow by the orders: shell functions, builtin commands, and normal programs.
+.br
+* When a shell function is executed, it will find all shell parameters that are set to the arguments
+of the shell function. The variables which are explicitly placed in the environment of the command (by placing assignments to them before the function name) are made local to the function and are set to the values given.  Then the command given in the function definition is executed.  The positional parameters are restored to their original values when the command completes.
+.br
+* If it doesn't find a shell functions, it will find the shell builtins which are the command that can use in the current shell, and executes them.
+.br
+* Otherwise, if the command name doesn't match a function or builtin, the command is searched for as a current program in the file system.
+It will find in the current path and executes that program.
+.SS Path Search
+When locating a command, the shell first looks to see if it has a shell function by that name.
+Then it looks for a builtin command by that name.
+.SS Exit Status
+Shell command has many exit status based on each command that type in.
+The paradigm is that a command exits with zero for normal or success, and non-zero for failure, error, or a false indication.
+The man page for each command should indicate the various exit codes and what they mean.
+.SS Special Parameters
+A special parameter is a parameter denoted by one of the following special characters.
+The value of the parameter is listed next to its character.
+.br
+|| & && ; ;; ( ) | |& <newline>
+.SH Option
+.SS Built-in
+.B Env
+: a built-in command to print all environment variable.
+.br
+.B Exit
+: a built-in command to exit the shell when it is running.
+.SH Bug
+It is too simple to run complicated function such as pipeline, special characters.
+.SH SEE ALSO
+.Xr
+.B sh(1)
+.SH AUTHOR
+.B Van Phan
+.br
+673@holbertonschool.com
+.br
+.B Sneha Lakshminath
+.br
+687@holbertonschool.com
