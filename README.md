@@ -45,6 +45,10 @@ simple_shell_main.c - entry point.
 shell.h - function prototypes, standard libraries.
 built_in.c - executing built-ins for shell.
 handle_args.c - tokenizing function.
+path.c - handling the main path for the shell which contains getting
+path value, splitting the path and getting the command.
+please_enter.c - readig the buffer input(getline).
+strhelp.c - helper functions needed to create this shell project.
 
 Authors
 
