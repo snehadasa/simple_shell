@@ -19,13 +19,16 @@ Features
 Like the C shell, simple shell handles command line inputs along with arguments.
 Some of the following built-ins are implemented.They are,
 
-1.Exit - Exits simple shell.
-2.env - Prints list of environment variables.
-3.Ctrl-D - end of file(exits the shell).
+| No. | command | Description |
+| --- | ------- | ----------- |
+| 1. | Exit | Exits simple shell |
+| 2. | env | Prints list of environment variables |
+| 3. | Ctrl-D | end of file(exits the shell) |
 
 examples
 
 $ ls -l
+
 total 68
 -rw-r--r--  1 sneha sneha   515 Apr 17 04:24 built_in.c
 -rw-r--r--  1 sneha sneha  1158 Apr 17 04:24 handle_arg.c
@@ -33,6 +36,7 @@ total 68
 -rw-r--r--  1 sneha sneha  1816 Apr 17 04:24 path.c
 
 $ pwd
+
 /home/sneha/simple_shell
 
 About
