@@ -1,4 +1,31 @@
 #include "shell.h"
+/**
+ * _strdup - create an array with special charcter.
+ * @str: chacter value.
+ *
+ * Return: .
+ */
+char *_strdup(char *str)
+{
+	unsigned int i;
+	char *s;
+
+	if (str == NULL)
+		return (NULL);
+	for (i = 0; str[i] != 0; i++)
+		;
+	i = i + 1;
+	s = malloc(sizeof(char) * i);
+	if (s == NULL)
+		return (NULL);
+	if (s != NULL)
+	{
+		for (i = 0; str[i] != 0; i++)
+			s[i] = str[i];
+	}
+	s[i] = '\0';
+	return (s);
+}
 
 /**
  *handle - take the buffer input and tokenize that input.
@@ -28,10 +55,13 @@ char **handle(char *buffer)
 		return (NULL);
 	token = strtok(buffer, " \t\n");
 	if (!token)
+	{
+		free(arr);
 		return (NULL);
+	}
 	while (token)
 	{
-		arr[j] = token;
+		arr[j] = _strdup(token);
 		token = strtok(NULL, " \t\n");
 		j++;
 	}
