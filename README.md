@@ -23,14 +23,30 @@ Some of the following built-ins are implemented.They are,
 2.env - Prints list of environment variables.
 3.Ctrl-D - end of file(exits the shell).
 
-Some examples
+examples
 
-ls -la
+$ ls -l
+total 68
+-rw-r--r--  1 sneha sneha   515 Apr 17 04:24 built_in.c
+-rw-r--r--  1 sneha sneha  1158 Apr 17 04:24 handle_arg.c
+-rwxr-xr-x  1 sneha sneha 23960 Apr 12 17:31 simple_shell_main.c
+-rw-r--r--  1 sneha sneha  1816 Apr 17 04:24 path.c
+
+$ pwd
+/home/sneha/simple_shell
 
 About
 
 All files were created and compiled on Ubuntu 14.04.4 LTS using GCC 4.8.4 with the flags "-Wall -Werror -Wextra -pedantic".
 
+Files
+
+simple_shell_main.c - entry point.
+shell.h - function prototypes, standard libraries.
+built_in.c - executing built-ins for shell.
+handle_args.c - tokenizing function.
+
 Authors
 
-Van Duy Phan - @Van_D_Phan & Sneha Dasa Lakshminath - @DasaSneha
+Van Duy Phan - @Van_D_Phan 
+Sneha Dasa Lakshminath - @DasaSneha
