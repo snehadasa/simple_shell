@@ -1,10 +1,10 @@
-Simple Shell
+**Simple Shell**
 
-Overview
+**Overview**
 
 The simple shell is a command processor that mimics the C shell allowing the user to type commands. This project was developed as a part of first year curriculum of Holberton School, San Fransisco.
 
-Usage
+**Usage**
 
 1. All the prototypes are included in shell.h.
 2. Compile using gcc -Wall -Werror -Wextra -pedantic * .c -o hsh
@@ -14,7 +14,7 @@ Usage
 6. When it is done, the program returns to parent.
 7. Ctrl-D(End of file) ad exit.
 
-Features
+**Features**
 
 Like the C shell, simple shell handles command line inputs along with arguments.
 Some of the following built-ins are implemented.They are,
@@ -25,7 +25,7 @@ Some of the following built-ins are implemented.They are,
 | 2. | env | Prints list of environment variables |
 | 3. | Ctrl-D | end of file(exits the shell) |
 
-examples
+**examples**
 
 $ ls -l
 
@@ -39,11 +39,11 @@ $ pwd
 
 /home/sneha/simple_shell
 
-About
+**About**
 
 All files were created and compiled on Ubuntu 14.04.4 LTS using GCC 4.8.4 with the flags "-Wall -Werror -Wextra -pedantic".
 
-Files
+**Files**
 
 | Files | Description |
 | ----- | ----------- |
@@ -55,7 +55,7 @@ Files
 | please_enter.c | readig the buffer input(getline) |
 | strhelp.c | helper functions needed to create this shell project |
 
-Authors
+**Authors**
 
-Van Duy Phan - @Van_D_Phan 
-Sneha Dasa Lakshminath - @DasaSneha
+**Van Duy Phan** - @Van_D_Phan 
+**Sneha Dasa Lakshminath** - @DasaSneha
