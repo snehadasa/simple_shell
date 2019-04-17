@@ -31,16 +31,17 @@ int main(int ac, __attribute__((unused))char **av, char **env)
 
 	while (1)
 	{
-		buff = readline();
+		buff = readtheline();
+		tokenize = NULL;
 		tokenize = handle(buff);
 		if (!tokenize)
 			continue;
-		built_in(tokenize[0], env);
+		built_in(tokenize, env, &buff);
 		pid = fork();
 		if (pid == -1)
 		{
 			perror("error");
-			free(buff);
+			free3(tokenize, buff);
 			return (1);
 		}
 		if (pid == 0)
@@ -49,16 +50,40 @@ int main(int ac, __attribute__((unused))char **av, char **env)
 			if (execve(path, tokenize, NULL) == -1)
 			{
 				perror("Error:");
-				free(tokenize);
-				free(buff);
+				free2(tokenize, buff);
 				exit(0);
 			}
 		}
 		else
+		{
+			free2(tokenize, buff);
 			wait(NULL);
+		}
 	}
-	free(path);
-	free(tokenize);
-	free(buff);
+	free3(tokenize, buff);
 	return (0);
+}
+/**
+ *free2 - free variable for main.
+ *@tokenize: the array of strings from main.
+ *@buff: buffer input from main function.
+ */
+void free2(char **tokenize, char *buff)
+{
+	int i;
+
+	for (i = 0; tokenize[i]; i++)
+		free(tokenize[i]);
+	dfree(tokenize);
+	safefree(buff);
+}
+/**
+ *free3 - free variable for main.
+ *@tokenize: the array of strings from main.
+ *@buff: buffer input from main function.
+ */
+void free3(char **tokenize, char *buff)
+{
+	dfree(tokenize);
+	safefree(buff);
 }
