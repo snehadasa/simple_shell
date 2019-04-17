@@ -41,14 +41,15 @@ All files were created and compiled on Ubuntu 14.04.4 LTS using GCC 4.8.4 with t
 
 Files
 
-simple_shell_main.c - entry point.
-shell.h - function prototypes, standard libraries.
-built_in.c - executing built-ins for shell.
-handle_args.c - tokenizing function.
-path.c - handling the main path for the shell which contains getting
-path value, splitting the path and getting the command.
-please_enter.c - readig the buffer input(getline).
-strhelp.c - helper functions needed to create this shell project.
+| Files | Description |
+| ----- | ----------- |
+| simple_shell_main.c | entry point |
+| shell.h | function prototypes, standard libraries |
+| built_in.c | executing built-ins for shell |
+| handle_args.c | tokenizing function |
+| path.c | path(path value, splitting and getting commands) |
+| please_enter.c | readig the buffer input(getline) |
+| strhelp.c | helper functions needed to create this shell project |
 
 Authors
 
