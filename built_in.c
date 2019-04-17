@@ -2,7 +2,7 @@
 /**
  *built_in - create built-in command for shell.
  *@tokenize: the value after tokenizing the buffer in main file.
- *@env: array of string of environment values.
+ *@env: the array of string of environment values.
  *@buff: buffer input from main.
  */
 void built_in(char **tokenize, char **env, char **buff)

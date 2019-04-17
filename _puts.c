@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * _puts - updates the value it points to to 98
+ * _puts - update the value it points to to 98
  * @str: character value.
  */
 void _puts(char *str)

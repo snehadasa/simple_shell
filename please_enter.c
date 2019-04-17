@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
  *safefree - safe free if the variable is not NULL.
- *@str: string pointer from main function.
+ *@str: string pointers from main function.
  */
 void safefree(char *str)
 {

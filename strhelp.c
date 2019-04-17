@@ -1,8 +1,8 @@
 #include "shell.h"
 /**
  * _strcat - concentrate two string.
- *@dest: character value.
- *@src: character value.
+ *@dest: string pointer value.
+ *@src: string pointer value.
  *
  * Return: dest value.
  */

@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
  * env_builtin - enviroment built-in.
- * @env: array of string of environment values.
+ * @env: the array of string of environment values.
  */
 void env_builtin(char **env)
 {

@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
  *get_path_value - get the value of environment.
- *@env: a array of string of environment variable
+ *@env: an array of string of environment variable
  *
  *Return: token(success) or NULL(fail).
  */

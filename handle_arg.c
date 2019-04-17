@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
  * _strdup - create an array with special charcter.
- * @str: chacter value.
+ * @str: character value.
  *
  * Return: .
  */
