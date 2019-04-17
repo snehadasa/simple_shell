@@ -23,11 +23,11 @@ void env_builtin(char **env)
  */
 int main(int ac, __attribute__((unused))char **av, char **env)
 {
-	(void)ac;
-	pid_t pid;
 	char *buff = NULL;
 	char *path;
 	char **tokenize;
+	pid_t pid;
+	(void)ac;
 
 	while (1)
 	{
