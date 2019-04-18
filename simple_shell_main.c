@@ -10,7 +10,7 @@ void env_builtin(char **env)
 	for (i = 0; env[i]; i++)
 	{
 		_puts(env[i]);
-		_puts("\n");
+		_putchar('\n');
 	}
 }
 /**
