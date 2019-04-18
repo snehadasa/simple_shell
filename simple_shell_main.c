@@ -7,10 +7,13 @@ void env_builtin(char **env)
 {
 	int i;
 
-	for (i = 0; env[i]; i++)
+	if (env)
 	{
-		_puts(env[i]);
-		_putchar('\n');
+		for (i = 0; env[i]; i++)
+		{
+			_puts(env[i]);
+			_putchar('\n');
+		}
 	}
 }
 /**
