@@ -21,6 +21,7 @@ void built_in(char **tokenize, char **env, char **buff, int status)
 	}
 	if (_strcmp(tokenize[0], "env") == 0)
 	{
-		env_builtin(env);
+		if (!tokenize[1])
+			env_builtin(env);
 	}
 }
