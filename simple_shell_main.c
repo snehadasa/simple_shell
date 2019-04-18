@@ -23,9 +23,9 @@ void env_builtin(char **env)
  */
 int main(int ac, __attribute__((unused))char **av, char **env)
 {
-	char *buff = NULL;
-	char *path;
+	char *buff = NULL, *path;
 	char **tokenize;
+	int status = 0, number = 0;
 	pid_t pid;
 	(void)ac;
 
@@ -36,7 +36,7 @@ int main(int ac, __attribute__((unused))char **av, char **env)
 		tokenize = handle(buff);
 		if (!tokenize)
 			continue;
-		built_in(tokenize, env, &buff);
+		built_in(tokenize, env, &buff, number);
 		pid = fork();
 		if (pid == -1)
 		{
@@ -57,7 +57,8 @@ int main(int ac, __attribute__((unused))char **av, char **env)
 		else
 		{
 			free2(tokenize, buff);
-			wait(NULL);
+			wait(&status);
+			number = exit1(status);
 		}
 	}
 	free3(tokenize, buff);
@@ -86,4 +87,18 @@ void free3(char **tokenize, char *buff)
 {
 	dfree(tokenize);
 	safefree(buff);
+}
+/**
+ *exit1 - return exit form child process
+ *@status:  exit value.
+ *
+ *Return: return exit value.
+ */
+int exit1(int status)
+{
+	int number;
+
+	if (WIFEXITED(status))
+		number = WEXITSTATUS(status);
+	return (number);
 }
