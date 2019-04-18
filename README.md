@@ -52,10 +52,13 @@ All files were created and compiled on Ubuntu 14.04.4 LTS using GCC 4.8.4 with t
 | built_in.c | executing built-ins for shell |
 | handle_args.c | tokenizing function |
 | path.c | path(path value, splitting and getting commands) |
-| please_enter.c | readig the buffer input(getline) |
+| please_enter.c | reading the buffer input(getline) |
 | strhelp.c | helper functions needed to create this shell project |
+| _putchar.c | writes the character to stdout |
+| _puts.c | update the value it points to |
+| AUTHORS | contributors to the simple shell project |
 
 **Authors**
 
-**Van Duy Phan** - @Van_D_Phan 
+**Van Duy Phan** - @Van_D_Phan
 **Sneha Dasa Lakshminath** - @DasaSneha
