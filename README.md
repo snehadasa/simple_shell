@@ -12,7 +12,7 @@ The simple shell is a command processor that mimics the C shell allowing the use
 4. Checks for built-ins, aliases, executables in the path.
 5. Creates child process.
 6. When it is done, the program returns to parent.
-7. Ctrl-D(End of file) ad exit.
+7. Ctrl-D(End of file) and exit.
 
 **Features**
 
