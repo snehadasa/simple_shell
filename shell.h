@@ -31,7 +31,7 @@ int _strlen(char *str);
 char *_memset(char *s, char b, unsigned int n);
 
 /*built_in.c*/
-void built_in(char **tokenize, char **env, char **buff);
+void built_in(char **tokenize, char **env, char **buff, int status);
 
 /*please_enter.c*/
 char *readtheline(void);
@@ -42,5 +42,6 @@ void dfree(char **str);
 void env_builtin(char **env);
 void free2(char **tokenize, char *buff);
 void free3(char **tokenize, char *buff);
+int exit1(int status);
 
 #endif /* SHELL_H */
